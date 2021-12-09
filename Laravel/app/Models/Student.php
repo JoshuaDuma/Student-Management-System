@@ -16,6 +16,7 @@ class Student extends Model
         'first_name',
         'last_name',
         'classroom_id',
+        'is_deleted'
     ];
 
     /**

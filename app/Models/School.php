@@ -21,4 +21,8 @@ class School extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     ## ADD RELATIONSHIP
+    public function school()
+    {
+        return $this->HasMany(Classroom::class);
+    }
 }

@@ -24,6 +24,7 @@
 Route::post('/students/createStudent', 'App\Http\Controllers\StudentController@createStudent');
 Route::put('/students/updateStudentRecord', 'App\Http\Controllers\StudentController@updateStudentRecord');
 Route::get('/students/{id}', 'App\Http\Controllers\StudentController@getStudentRecord');
+Route::delete('/students/{id}', 'App\Http\Controllers\StudentController@deleteStudentRecord');
 
 /**
  * An API endpoint which will retrieve a list of students matching

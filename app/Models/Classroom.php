@@ -24,6 +24,10 @@ class Classroom extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     ## ADD RELATIONSHIP
+    public function classroom()
+    {
+        return $this->belongsTo(School::class);
+    }
 
     /**
      * A classroom may have many students.
@@ -31,4 +35,9 @@ class Classroom extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     ## ADD RELATIONSHIP
+    public function students()
+    {
+        return $this->HasMany(Student::class);
+    }
+
 }

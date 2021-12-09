@@ -22,12 +22,12 @@ class StudentController extends Controller
         return $randAlphaNum;
     }
 
+    // For quick testing.
     private $classroomArr = [10,20,30,40,50,60];
     private $studentNumbers = [1,2,3,4,5,6];
 
     public function createStudent(Request $request)
     {
-        return $request;
         if ($request->has('first_name') && $request->has('last_name') && $request->has('classroom_id')) {
             $student = new Student;
             $student->first_name = $request->only('first_name', false);
@@ -67,14 +67,6 @@ class StudentController extends Controller
             $student->first_name = $request->input('first_name', false);
             $student->last_name = $request->input('last_name', false);
             $student->classroom_id = $request->input('classroom_id', false);
-            if($request->has('classroom_id') && !isset(array_flip($this->classroomArr)[$student->classroom_id])){
-                return response()->json([
-                    "message" => "Forbidden",
-                    "errors" =>[
-                        "message" => "Invalid classroom id."
-                    ]
-                  ], 403);
-            }
             $student->student_number = $request->input('student_number', false);
             /* @TODO
             * Use update query for database where student number equals student_number, omit columns where the value is false.
@@ -84,7 +76,7 @@ class StudentController extends Controller
             return response()->json([
                 "message" => "Forbidden",
                 "errors" =>[
-                    "message" => "Invalid student id."
+                    "message" => "Invalid student number."
                 ]
               ], 403);
         }
@@ -99,7 +91,7 @@ class StudentController extends Controller
             return response()->json([
                 "message" => "Forbidden",
                 "errors" =>[
-                    "message" => "Invalid student id."
+                    "message" => "Invalid student number."
                 ]
               ], 403);
         }
@@ -108,5 +100,25 @@ class StudentController extends Controller
         */
         $classRoomInformation = ["name" => "bob", "school_id" => 1];
         return response()->json($classRoomInformation, 201);
+    }
+
+    public function deleteStudentRecord(Request $request, $id){
+        // Check if student id exists, if not then return error.
+        if(!isset(array_flip($this->studentNumbers)[$id])){
+            return response()->json([
+                "message" => "Forbidden",
+                "errors" =>[
+                    "message" => "Invalid student number."
+                ]
+              ], 403);
+        }
+        $student = new Student;
+        $student->is_deleted = 1;
+        /* @TODO
+        * Perform soft delete.
+        */
+        return response()->json([
+            "message" => "Student record created deleted."
+                  ], 201);
     }
 }

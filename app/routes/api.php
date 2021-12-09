@@ -20,7 +20,11 @@
  * 7. Each endpoint should return a JSON response payload representing the
  *    student record being created/read/updated/deleted.
  */
-Route::apiResource('students', 'StudentController');
+
+Route::post('/students/createStudent', 'App\Http\Controllers\StudentController@createStudent');
+Route::put('/students/updateStudentRecord', 'App\Http\Controllers\StudentController@updateStudentRecord');
+Route::get('/students/{id}', 'App\Http\Controllers\StudentController@getStudentRecord');
+Route::delete('/students/{id}', 'App\Http\Controllers\StudentController@deleteStudentRecord');
 
 /**
  * An API endpoint which will retrieve a list of students matching
@@ -35,4 +39,4 @@ Route::apiResource('students', 'StudentController');
  * 5. In the JSON response payload, include the full_name for each student
  *    by combining the student's first and last name.
  */
-Route::get('students/search', 'StudentSearchController@index');
+Route::get('/students/search', 'App\Http\Controllers\StudentSearchController@index');
